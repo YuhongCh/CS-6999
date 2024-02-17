@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fe9de512-5abb-4a35-9e7c-cc8b88c8a053" name="Changes" comment="Basic DER Data Structure">
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Application/SceneRenderer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Application/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/HairConstant.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/Components.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/Hair.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/HairStates.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/States.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/ElasticParameters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/Integrator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/Scene.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/XMLParser.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Test/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Test/simple_yarn.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <branch-grouping />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2bDf9NBgxrUgAyBjELOlhsAO7qU" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/CYH/Desktop/GT SP2024/CS 6999/Liquid-Cloth-Interaction/tests",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\CYH\Desktop\GT SP2024\CS 6999\Liquid-Cloth-Interaction\tests" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\CYH\Desktop\GT SP2024\CS 6999\Liquid_Cloth_Interaction\Simulation" />
+      <recent name="C:\Users\CYH\Desktop\GT SP2024\CS 6999\Liquid_Cloth_Interaction\Simulation\DER" />
+      <recent name="C:\Users\CYH\Desktop\GT SP2024\CS 6999\Liquid-Cloth-Interaction" />
+      <recent name="C:\Users\CYH\Desktop\GT SP2024\CS 6999\Liquid-Cloth-Interaction\Application" />
+      <recent name="C:\Users\CYH\Desktop\GT SP2024\CS 6999\Liquid-Cloth-Interaction\tests" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.main (2)">
+    <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CS 6999" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/New_DER" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/New_DER/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CS 6999" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Liquid_Cloth_Interaction/Application" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Liquid_Cloth_Interaction/Application/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="CS 6999" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main (2)" />
+        <item itemvalue="Python.main (1)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fe9de512-5abb-4a35-9e7c-cc8b88c8a053" name="Changes" comment="" />
+      <created>1705754418213</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1705754418213</updated>
+      <workItem from="1705754419649" duration="3805000" />
+      <workItem from="1705818840427" duration="887000" />
+      <workItem from="1705997473243" duration="30287000" />
+      <workItem from="1706322930644" duration="10669000" />
+      <workItem from="1706365560779" duration="1078000" />
+      <workItem from="1706603762543" duration="917000" />
+      <workItem from="1706861081909" duration="2643000" />
+      <workItem from="1706940893796" duration="29402000" />
+      <workItem from="1707187485519" duration="12159000" />
+      <workItem from="1707358018607" duration="1515000" />
+      <workItem from="1707706971993" duration="593000" />
+      <workItem from="1707720840883" duration="4236000" />
+      <workItem from="1707796345326" duration="2628000" />
+      <workItem from="1707874844357" duration="9607000" />
+      <workItem from="1707959343779" duration="35404000" />
+    </task>
+    <task id="LOCAL-00001" summary="Basic DER Data Structure">
+      <option name="closed" value="true" />
+      <created>1707901750162</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1707901750162</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Basic DER Data Structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="Basic DER Data Structure" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/CS_6999$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1707103424367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/New_DER" />
+    <SUITE FILE_PATH="coverage/CS_6999$main__2_.coverage" NAME="main (2) Coverage Results" MODIFIED="1708095549049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Liquid_Cloth_Interaction/Application" />
+    <SUITE FILE_PATH="coverage/CS_6999$main.coverage" NAME="main Coverage Results" MODIFIED="1708091525612" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
