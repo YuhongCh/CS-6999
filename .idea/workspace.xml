@@ -5,19 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe9de512-5abb-4a35-9e7c-cc8b88c8a053" name="Changes" comment="Basic DER Data Structure">
-      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Application/SceneRenderer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Application/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/HairConstant.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/Components.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/Hair.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/HairStates.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/States.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/ElasticParameters.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/Integrator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/Scene.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/XMLParser.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Test/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Test/simple_yarn.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/Strand.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/StretchForce.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/TwistForce.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/GravityForce.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/SimulationUtils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Application/SceneRenderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Application/SceneRenderer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Application/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Application/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Liquid_Cloth_Interaction/HairConstant.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/Components.py" beforeDir="false" afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/Components.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/Hair.py" beforeDir="false" afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/BendingForce.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/HairStates.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/States.py" beforeDir="false" afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/DER/States.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/Integrator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/Integrator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/Scene.py" beforeDir="false" afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/Scene.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/XMLParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Simulation/XMLParser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Test/simple_yarn.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Liquid_Cloth_Interaction/Test/simple_yarn.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,6 +36,17 @@
       </list>
     </option>
   </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
   <component name="Git.Settings">
     <branch-grouping />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,7 +55,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -53,20 +68,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/CYH/Desktop/GT SP2024/CS 6999/Liquid-Cloth-Interaction/tests",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/CYH/Desktop/GT SP2024/CS 6999/Liquid-Cloth-Interaction/tests&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\CYH\Desktop\GT SP2024\CS 6999\Liquid-Cloth-Interaction\tests" />
@@ -175,7 +191,8 @@
       <workItem from="1707720840883" duration="4236000" />
       <workItem from="1707796345326" duration="2628000" />
       <workItem from="1707874844357" duration="9607000" />
-      <workItem from="1707959343779" duration="35404000" />
+      <workItem from="1707959343779" duration="57446000" />
+      <workItem from="1708334978664" duration="5452000" />
     </task>
     <task id="LOCAL-00001" summary="Basic DER Data Structure">
       <option name="closed" value="true" />
@@ -208,7 +225,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CS_6999$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1707103424367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/New_DER" />
-    <SUITE FILE_PATH="coverage/CS_6999$main__2_.coverage" NAME="main (2) Coverage Results" MODIFIED="1708095549049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Liquid_Cloth_Interaction/Application" />
+    <SUITE FILE_PATH="coverage/CS_6999$main__2_.coverage" NAME="main (2) Coverage Results" MODIFIED="1708345600122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Liquid_Cloth_Interaction/Application" />
     <SUITE FILE_PATH="coverage/CS_6999$main.coverage" NAME="main Coverage Results" MODIFIED="1708091525612" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -1,3 +1,4 @@
+
 import taichi.math as tm
 
 import xml.etree.ElementTree as ET
@@ -8,12 +9,12 @@ from Liquid_Cloth_Interaction.Simulation.Integrator import Integrator
 from Liquid_Cloth_Interaction.Simulation.DER.Components import DER_Vertices
 
 
-@ti.data_oriented
 class XMLParser:
     def __init__(self, filename: str):
+        self.filename = filename
         self.root = ET.parse(filename).getroot()
 
-    def load_elastic_parameters(self) -> ElasticParameters:
+    def p_load_elastic_parameters(self) -> ElasticParameters:
         """ Read and parse the Elastic Parameter tag from the XML file """
         parameters = self.root.find('ElasticParameters')
         if parameters is None:
@@ -36,7 +37,7 @@ class XMLParser:
                                  viscosity=viscosity,
                                  base_rotation=base_rotation)
 
-    def load_integrator(self) -> Integrator:
+    def p_load_integrator(self) -> Integrator:
         parameters = self.root.find('integrator')
         if parameters is None:
             print("Error: Failed to find integrator parameter")
@@ -46,7 +47,7 @@ class XMLParser:
         criterion = float(parameters.get("criterion"))
         return Integrator(dt=dt, type=type, criterion=criterion)
 
-    def load_der_vertices(self) -> DER_Vertices:
+    def p_load_der_vertices(self) -> DER_Vertices:
         particles = self.root.findall('particle')
         vertices = DER_Vertices(len(particles))
         for i in range(len(particles)):
@@ -63,6 +64,7 @@ class XMLParser:
 
             vertices.position[i] = position
             vertices.velocity[i] = velocity
-            vertices.fixed[i] = fixed
+            vertices.fixed[i] = (fixed == 1)
+        print(f"Load {len(particles)} particles from {self.filename}")
         return vertices
 

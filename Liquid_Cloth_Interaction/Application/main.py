@@ -7,8 +7,10 @@ ti.init(arch=ti.cpu, debug=True)
 
 
 if __name__ == "__main__":
-    scene = Scene("../Test/simple_yarn.xml")
-    sceneRenderer = SceneRenderer(scene)
+    sim_scene = Scene("../Test/simple_yarn.xml")
+    sim_scene.p_init()
+
+    sceneRenderer = SceneRenderer(sim_scene)
     while sceneRenderer.window.running:
 
-        sceneRenderer.render()
+        sceneRenderer.p_render()

@@ -36,17 +36,15 @@
     <particleCellMultiplier value="0.25"/>
   </liquidinfo>
   
-  <particle x="2.5 -2.0 -1.75" v="0.0 0.0 0.0" fixed="1"/>
-  <particle x="2.5 -2.0 -1.25" v="0.0 0.0 0.0" fixed="0"/>
-  <particle x="2.5 -2.0 -0.75" v="0.0 0.0 0.0" fixed="0"/>
-  <particle x="2.5 -2.0 -0.25" v="0.0 0.0 0.0" fixed="0"/>
-  <particle x="2.5 -2.0 0.25" v="0.0 0.0 0.0" fixed="0"/>
-  <particle x="2.5 -2.0 0.75" v="0.0 0.0 0.0" fixed="0"/>
-  <particle x="2.5 -2.0 1.25" v="0.0 0.0 0.0" fixed="0"/>
-  <particle x="2.5 -2.0 1.75" v="0.0 0.0 0.0" fixed="1"/>
-
-
-  <particle x="-2.0 1.79 0.0" v="0.0 0.0 0.0" fixed="0"/>
+<!--  <particle x="2.5 -2.0 -1.75" v="0.0 0.0 0.0" fixed="1"/>-->
+<!--  <particle x="2.5 -2.0 -1.25" v="0.0 0.0 0.0" fixed="0"/>-->
+<!--  <particle x="2.5 -2.0 -0.75" v="0.0 0.0 0.0" fixed="0"/>-->
+<!--  <particle x="2.5 -2.0 -0.25" v="0.0 0.0 0.0" fixed="0"/>-->
+<!--  <particle x="2.5 -2.0 0.25" v="0.0 0.0 0.0" fixed="0"/>-->
+<!--  <particle x="2.5 -2.0 0.75" v="0.0 0.0 0.0" fixed="0"/>-->
+<!--  <particle x="2.5 -2.0 1.25" v="0.0 0.0 0.0" fixed="0"/>-->
+<!--  <particle x="2.5 -2.0 1.75" v="0.0 0.0 0.0" fixed="1"/>-->
+  <particle x="-2.0 1.79 0.0" v="0.0 0.0 0.0" fixed="1"/>
   <particle x="-1.5 1.79 0.0" v="0.0 0.0 0.0" fixed="0"/>
   <particle x="-1.0 1.79 0.0" v="0.0 0.0 0.0" fixed="0"/>
   <particle x="-0.5 1.79 0.0" v="0.0 0.0 0.0" fixed="0"/>

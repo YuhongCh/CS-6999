@@ -6,3 +6,6 @@ The goal of this project is to implement the papers:
 - [libWetCloth: A Multi-Scale Model for Simulating Liquid-Fabric Interactions](http://www.cs.columbia.edu/cg/wetcloth/)
 
 The implementation will be completed based on Taichi.
+
+Since Taichi requires a clear distinction between Taichi-Scope and Python-Scope. 
+I decided to name functions with `t_` at start for Taichi-Scope function and `p_` at start for Python-Scope function.
