@@ -28,8 +28,11 @@ class XMLParser:
         density = float(parameters.find("density").get("value"))
         viscosity = literal_eval(parameters.find("viscosity").get("value"))
         base_rotation = float(parameters.find("baseRotation").get("value"))
+
+        shear_modulus = int(youngs_modulus * 0.365)
         return ElasticParameters(radius=radius,
                                  youngs_modulus=youngs_modulus,
+                                 shear_modulus=shear_modulus,
                                  poisson_ratio=poisson_ratio,
                                  collision_multiplier=collision_multiplier,
                                  attach_multiplier=attach_multiplier,
@@ -58,12 +61,12 @@ class XMLParser:
 
             position = position.split(' ')
             position = tm.vec3(float(position[0]), float(position[1]), float(position[2]))
-            velocity = velocity.split(' ')
-            velocity = tm.vec3(float(velocity[0]), float(velocity[1]), float(velocity[2]))
+            # velocity = velocity.split(' ')
+            # velocity = tm.vec3(float(velocity[0]), float(velocity[1]), float(velocity[2]))
             fixed = int(fixed)
 
             vertices.position[i] = position
-            vertices.velocity[i] = velocity
+            # vertices.velocity[i] = velocity
             vertices.fixed[i] = (fixed == 1)
         print(f"Load {len(particles)} particles from {self.filename}")
         return vertices

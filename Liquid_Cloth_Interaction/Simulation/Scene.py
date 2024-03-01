@@ -8,14 +8,14 @@ class Scene:
         self.elastic = self.parser.p_load_elastic_parameters()
         self.integrator = self.parser.p_load_integrator()
         self.DER_model = DER_Strand(init_vertices=self.parser.p_load_der_vertices(),
-                                    elastic=self.elastic)
+                                    elastic=self.elastic,
+                                    integrator=self.integrator)
 
     def p_init(self):
         """ Do everything that needs be precomputed for the scene here """
         self.DER_model.p_init()
 
     def p_next_step(self):
-        dt = self.integrator.dt
         self.DER_model.p_accumulate_force()
-        self.DER_model.p_update_state(dt)
+        self.DER_model.p_update_state()
 

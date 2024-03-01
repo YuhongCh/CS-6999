@@ -17,15 +17,16 @@ Using function with return statement in Taichi-Scope loop is FORBIDDEN!
 
 def p_find_normal(dir: tm.vec3) -> tm.vec3:
     """ Find the normal of given vector dir """
-    if abs(dir.x) > Epsilon:
-        return tm.vec3(-dir.y, dir.x, 0)
-    elif abs(dir.y) > Epsilon:
-        return tm.vec3(0, -dir.z, dir.y)
-    elif abs(dir.z) > Epsilon:
-        return tm.vec3(dir.z, 0, -dir.x)
+    normal = tm.vec3(0, 0, 0)
+    if abs(dir[0]) > Epsilon:
+        normal = tm.vec3(-dir[1], dir[0], 0)
+    elif abs(dir[1]) > Epsilon:
+        normal = tm.vec3(0, -dir[0], dir[1])
+    elif abs(dir[2]) > Epsilon:
+        normal = tm.vec3(dir[2], 0, -dir[0])
     else:
         print("Error: Cannot find normal of a zero vector")
-        assert False
+    return normal
 
 
 """ Below are Taichi-Scope Methods """
@@ -33,12 +34,13 @@ def p_find_normal(dir: tm.vec3) -> tm.vec3:
 @ti.func
 def t_find_normal(dir: tm.vec3) -> tm.vec3:
     """ Find the normal of given vector dir """
-    if abs(dir.x) > Epsilon:
-        return tm.vec3(-dir.y, dir.x, 0)
-    elif abs(dir.y) > Epsilon:
-        return tm.vec3(0, -dir.z, dir.y)
-    elif abs(dir.z) > Epsilon:
-        return tm.vec3(dir.z, 0, -dir.x)
+    normal = tm.vec3(0, 0, 0)
+    if abs(dir[0]) > Epsilon:
+        normal = tm.vec3(-dir[1], dir[0], 0)
+    elif abs(dir[1]) > Epsilon:
+        normal = tm.vec3(0, -dir[0], dir[1])
+    elif abs(dir[2]) > Epsilon:
+        normal = tm.vec3(dir[2], 0, -dir[0])
     else:
         print("Error: Cannot find normal of a zero vector")
-        assert False
+    return normal
