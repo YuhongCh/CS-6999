@@ -1,6 +1,6 @@
 import taichi as ti
 
-from Liquid_Cloth_Interaction.Application.SceneRenderer import SceneRenderer
+from SceneRenderer import SceneRenderer
 from Liquid_Cloth_Interaction.Simulation.Scene import Scene
 
 ti.init(arch=ti.cpu, debug=True)
@@ -12,5 +12,5 @@ if __name__ == "__main__":
 
     sceneRenderer = SceneRenderer(sim_scene)
     while sceneRenderer.window.running:
-
+        sim_scene.p_next_step()
         sceneRenderer.p_render()

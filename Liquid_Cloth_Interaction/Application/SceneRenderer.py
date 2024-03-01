@@ -4,7 +4,7 @@ import taichi.math as tm
 from copy import copy
 
 from Liquid_Cloth_Interaction.Simulation.Scene import Scene
-from Liquid_Cloth_Interaction.Simulation.DER.States import DER_StrandState
+from Liquid_Cloth_Interaction.Simulation.DER.Strand import DER_Strand
 
 @ti.data_oriented
 class SceneRenderer:
@@ -20,7 +20,7 @@ class SceneRenderer:
         self.render_scene = self.window.get_scene()
 
         self.camera = ti.ui.Camera()
-        self.camera.position(0.0, 0.0, 10)
+        self.camera.position(0.0, 0.0, 20)
         self.camera.lookat(0.0, 0.0, 0)
 
         self.render_scene.set_camera(self.camera)
@@ -36,18 +36,17 @@ class SceneRenderer:
 @ti.data_oriented
 class DER_Renderer:
     """ This is a temporary class to display the DER model on screen """
-    def __init__(self, state: DER_StrandState):
-        num_vertices = state.p_get_num_vertices()
-        self.state = copy(state)
+    def __init__(self, strand: DER_Strand):
+        num_vertices = strand.state.p_get_num_vertices()
+        self.state = copy(strand.state)
         self.hair_position = ti.field(dtype=ti.math.vec3, shape=num_vertices)
         self.hair_indices = ti.field(dtype=int, shape=2 * (num_vertices - 1))
         self.p_load_hair_indices()
 
     @ti.kernel
-    def t_load_hair_position(self, position: ti.types.ndarray(dtype=tm.vec3)):
-        num_vertices = self.state.t_get_num_vertices()
-        for i in ti.ndrange(num_vertices):
-            self.hair_position[i] = position[i]
+    def t_load_hair_position(self, ):
+        for i in self.state.vertices.position:
+            self.hair_position[i] = self.state.vertices.position[i]
 
     def p_load_hair_indices(self):
         num_node = self.hair_indices.shape[0] // 2 + 1
@@ -59,7 +58,7 @@ class DER_Renderer:
             self.hair_indices[2 * i - 1] = i
 
     def p_render(self, render_scene: ti.ui.Scene):
-        self.t_load_hair_position(self.state.vertices.position)
+        self.t_load_hair_position()
         render_scene.lines(vertices=self.hair_position,
                                    width=1,
                                    indices=self.hair_indices)
