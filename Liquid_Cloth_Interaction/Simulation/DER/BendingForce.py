@@ -3,7 +3,7 @@ import taichi.math as tm
 
 from math import pi
 from copy import copy
-from Liquid_Cloth_Interaction.Simulation.ElasticParameters import ElasticParameters
+from Liquid_Cloth_Interaction.Simulation.Parameters import ElasticParameters
 from Liquid_Cloth_Interaction.Simulation.DER.States import DER_StrandState, DER_RestState
 
 @ti.data_oriented

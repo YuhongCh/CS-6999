@@ -4,7 +4,7 @@ import taichi.math as tm
 import xml.etree.ElementTree as ET
 from ast import literal_eval
 
-from Liquid_Cloth_Interaction.Simulation.ElasticParameters import ElasticParameters
+from Liquid_Cloth_Interaction.Simulation.Parameters import ElasticParameters
 from Liquid_Cloth_Interaction.Simulation.Integrator import Integrator
 from Liquid_Cloth_Interaction.Simulation.DER.Components import DER_Vertices
 

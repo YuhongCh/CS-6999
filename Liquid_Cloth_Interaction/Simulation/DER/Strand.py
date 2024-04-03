@@ -4,7 +4,7 @@ import taichi.math as tm
 from copy import copy
 
 from Liquid_Cloth_Interaction.Simulation.Integrator import Integrator
-from Liquid_Cloth_Interaction.Simulation.ElasticParameters import ElasticParameters
+from Liquid_Cloth_Interaction.Simulation.Parameters import ElasticParameters
 
 from Liquid_Cloth_Interaction.Simulation.DER.Components import DER_Vertices
 from Liquid_Cloth_Interaction.Simulation.DER.States import DER_StrandState, DER_RestState
@@ -28,6 +28,7 @@ class DER_Strand:
         num_vertices = self.state.p_get_num_vertices()
         self.force = ti.ndarray(dtype=tm.vec4, shape=num_vertices)
         self.velocity = ti.ndarray(dtype=tm.vec4, shape=num_vertices)
+        self.jacobi_force = ti.linalg.SparseMatrixBuilder(4*num_vertices-1, 4*num_vertices-1)
 
         self.force_types = [GravityForce(),
                             StretchForce(self.state, self.rest_state, self.elastic),
@@ -57,7 +58,7 @@ class DER_Strand:
     """
     @ti.kernel
     def t_update_state(self, force: ti.types.ndarray(dtype=tm.vec4),
-                       velocity: ti.types.ndarray(dtype=tm.vec3)):
+                       velocity: ti.types.ndarray(dtype=tm.vec4)):
         """
         Update DER State based on previous computed forces
         ONLY call this method after all force computation completed

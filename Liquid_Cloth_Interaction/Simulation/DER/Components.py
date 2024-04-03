@@ -6,6 +6,10 @@ from Liquid_Cloth_Interaction.Simulation.SimulationUtils import t_find_normal
 from Liquid_Cloth_Interaction.Simulation.SimulationUtils import Epsilon
 
 """
+This file contains ALL Components needed for DER model
+"""
+
+"""
 Here is the idea:
 Assume there are n vertices, then there are n - 1 edges
 Then there are n - 2 curvature and grad_curvature since they are defined between edges
@@ -280,8 +284,6 @@ class DER_GradCurvature:
 
     @ti.func
     def t_update(self):
-        # TODO: Check if the following indexing is correct
-        # TODO: Complete the assignment of gradient kappa
         num_edges = self.edges.t_get_num_edges()
         for i in ti.ndrange((1, num_edges - 1)):
             prev_edge_dir = self.edges.dir[i-1]
@@ -336,3 +338,67 @@ class DER_GradCurvature:
             self.grad_kappa[i][7, 2] = 0
             self.grad_kappa[i][3, 3] = tm.dot(-kb, curr_mat_frame2)
             self.grad_kappa[i][7, 3] = 0
+
+
+# TODO: Complete Computation of Hessian Kappa
+@ti.data_oriented
+class DER_HessCurvature:
+    def __init__(self, edges: DER_Edges, kb: DER_CurvatureBinormal, mat_frame: DER_MaterialFrame, curvature: DER_Curvature):
+        self.edges = copy(edges)
+        self.kb = copy(kb)
+        self.mat_frame = copy(mat_frame)
+        self.curvature = copy(curvature)
+
+        kb_size = kb.kb.shape[0] * 4
+        self.hess_curvature = ti.Matrix.field(11, 11, dtype=float, shape=kb_size)
+
+    @ti.func
+    def update(self):
+        kb_size = self.kb.kb.shape[0]
+        for i in ti.ndrange((1, kb_size)):  # double check this index
+            prev_edge_length = self.edges.length[i-1]
+            curr_edge_length = self.edges.length[i]
+            prev_edge_length_sqr = prev_edge_length * prev_edge_length
+            curr_edge_length_sqr = curr_edge_length * curr_edge_length
+
+            prev_edge_dir = self.edges.dir[i-1]
+            curr_edge_dir = self.edges.dir[i]
+
+            prev_mat_frame1 = self.mat_frame.mat_frame1[i-1]
+            prev_mat_frame2 = self.mat_frame.mat_frame2[i-1]
+            curr_mat_frame1 = self.mat_frame.mat_frame1[i]
+            curr_mat_frame2 = self.mat_frame.mat_frame2[i]
+
+            chi = max(1 + tm.dot(prev_edge_dir, curr_edge_dir), Epsilon)
+
+            tilde_t = (prev_edge_dir + curr_edge_dir) / chi
+            tilde_pmf1 = (2 * prev_mat_frame1) / chi
+            tilde_pmf2 = (2 * prev_mat_frame2) / chi
+            tilde_cmf1 = (2 * curr_mat_frame1) / chi
+            tilde_cmf2 = (2 * curr_mat_frame2) / chi
+
+            kappa = self.curvature.kappa[i]
+            Dk0pDep = 1.0 / prev_edge_length * (-kappa[0] * tilde_t + tm.cross(curr_edge_dir, tilde_pmf2))
+            Dk0pDec = 1.0 / curr_edge_length * (-kappa[0] * tilde_t - tm.cross(prev_edge_dir, tilde_pmf2))
+            Dk1pDep = 1.0 / prev_edge_length * (-kappa[1] * tilde_t - tm.cross(curr_edge_dir, tilde_pmf1))
+            Dk1pDec = 1.0 / curr_edge_length * (-kappa[1] * tilde_t + tm.cross(prev_edge_dir, tilde_pmf1))
+            Dk0cDep = 1.0 / prev_edge_length * (-kappa[2] * tilde_t + tm.cross(curr_edge_dir, tilde_cmf2))
+            Dk0cDec = 1.0 / curr_edge_length * (-kappa[2] * tilde_t - tm.cross(prev_edge_dir, tilde_cmf2))
+            Dk1cDep = 1.0 / prev_edge_length * (-kappa[3] * tilde_t - tm.cross(curr_edge_dir, tilde_cmf1))
+            Dk1cDec = 1.0 / curr_edge_length * (-kappa[3] * tilde_t + tm.cross(prev_edge_dir, tilde_cmf1))
+
+            kb = self.kb.kb[i]
+            identity = tm.mat3(1, 0, 0, 0, 1, 0, 0, 0, 1)
+            DchiDe = 1.0 / prev_edge_length * (identity - prev_edge_dir.outer_product(prev_edge_dir)) * curr_edge_dir
+            DchiDf = 1.0 / curr_edge_length * (identity - curr_edge_dir.outer_product(curr_edge_dir)) * prev_edge_dir
+
+            DtfDf = 1.0 / curr_edge_length * (identity - curr_edge_dir.outer_product(curr_edge_dir))
+            
+
+
+
+
+
+#TODO: Complete Computation of Hessian Twist
+
+

@@ -12,3 +12,5 @@ class GravityForce:
         num_vertices = global_force.shape[0]
         for i in ti.ndrange(num_vertices):
             global_force[i] += tm.vec4(0, -9.81, 0, 0)
+
+    # TODO: Complete the Computation of Force Jacobi Matrix

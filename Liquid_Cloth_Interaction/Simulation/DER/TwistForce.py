@@ -3,7 +3,7 @@ import taichi.math as tm
 
 from math import pi
 from copy import copy
-from Liquid_Cloth_Interaction.Simulation.ElasticParameters import ElasticParameters
+from Liquid_Cloth_Interaction.Simulation.Parameters import ElasticParameters
 from Liquid_Cloth_Interaction.Simulation.DER.States import DER_StrandState, DER_RestState
 
 @ti.data_oriented
@@ -29,4 +29,4 @@ class TwistForce:
             global_force[i] += tot_force[4:8]
             global_force[i + 1] += tm.vec4(tot_force[8], tot_force[9], tot_force[10], 0)
 
-
+    # TODO: Complete the Computation of Force Jacobi Matrix
