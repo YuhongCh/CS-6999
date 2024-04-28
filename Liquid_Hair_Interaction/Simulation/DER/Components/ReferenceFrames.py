@@ -18,7 +18,7 @@ class ReferenceFrames1:
         self.data = ti.Vector.field(3, dtype=float, shape=self.size)
 
     @ti.kernel
-    def t_setInitFrame(self, init_frame: tm.vec3):
+    def setInitFrame(self, init_frame: tm.vec3):
         # invalid initial frame
         init_frame = tm.normalize(init_frame)
         if not Utils.t_isSmall(abs(tm.dot(init_frame, init_frame) - 1)):
@@ -36,7 +36,7 @@ class ReferenceFrames1:
                 self.prev_tangents_data[idx] = self.tangents.data[idx]
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         """ This is a time-based parallel transport """
         for idx in range(self.start_index, self.end_index):
             prev_trangent = self.prev_tangents_data[idx]
@@ -69,7 +69,7 @@ class ReferenceFrames2:
         self.data = ti.Vector.field(3, dtype=float, shape=self.size)
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         """ This is a time-based parallel transport """
         for idx in range(self.start_index, self.end_index):
             curr_tangent = self.tangents.data[idx]
@@ -89,7 +89,7 @@ class ReferenceTwists:
         self.data = ti.field(dtype=float, shape=self.size)
 
     @ti.func
-    def t_compute(self):
+    def compute(self):
         for idx in range(self.start_index, self.end_index):
             u0 = self.ref_frame1.data[idx - 1]
             u1 = self.ref_frame1.data[idx]

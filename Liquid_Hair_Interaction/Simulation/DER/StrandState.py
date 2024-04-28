@@ -9,30 +9,10 @@ from Liquid_Hair_Interaction.Simulation.DER.Components.ReferenceFrames import *
 from Liquid_Hair_Interaction.Simulation.DER.Components.Twists import *
 
 
-@ti.dataclass
+@ti.data_oriented
 class StrandState:
-    dofs: DOFs
-    edges: Edges
-    lengths: Lengths
-    tangents: Tangents
-    ref_frame1: ReferenceFrames1
-    ref_frame2: ReferenceFrames2
-    ref_twists: ReferenceTwists
-    twists: Twists
-    curvature_binormals: CurvatureBinormals
-    trig_thetas: TrigThetas
-    mat_frame1: MaterialFrames1
-    mat_frame2: MaterialFrames2
-    kappas: Kappas
-    grad_kappas: GradKappas
-    grad_twists: GradTwists
-    grad_twists_squared: GradTwistsSquared
-    hess_kappas: HessKappas
-    hess_twists: HessTwists
-    bending_products: BendingProducts
-
-    def init(self, initial_dofs: DOFs, base_bending_matrix: BaseBendingMatrix):
-        self.dofs = initial_dofs
+    def __init__(self, vertices, degrees, base_bending_matrix: BaseBendingMatrix):
+        self.dofs = DOFs(vertices, degrees)
         self.edges = Edges(self.dofs)
         self.lengths = Lengths(self.edges)
         self.tangents = Tangents(self.edges, self.lengths)
@@ -55,22 +35,8 @@ class StrandState:
 
 @ti.dataclass
 class StartState:
-    dofs: DOFs
-    edges: Edges
-    lengths: Lengths
-    tangents: Tangents
-    ref_frame1: ReferenceFrames1
-    ref_frame2: ReferenceFrames2
-    ref_twists: ReferenceTwists
-    twists: Twists
-    curvature_binormals: CurvatureBinormals
-    trig_thetas: TrigThetas
-    mat_frame1: MaterialFrames1
-    mat_frame2: MaterialFrames2
-    kappas: Kappas
-
-    def init(self, initial_dofs: DOFs):
-        self.dofs = initial_dofs
+    def __init__(self, vertices, degrees):
+        self.dofs = DOFs(vertices, degrees)
         self.edges = Edges(self.dofs)
         self.lengths = Lengths(self.edges)
         self.tangents = Tangents(self.edges, self.lengths)

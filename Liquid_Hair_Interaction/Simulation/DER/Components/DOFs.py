@@ -15,6 +15,13 @@ class DOFs:
         self.num_vertices = self.vertices.shape[0]
         self.num_edges = self.num_vertices - 1
 
+    @ti.func
+    def t_getVertexSize(self) -> int:
+        return self.vertices.shape[0]
+
+    def getVertexSize(self) -> int:
+        return self.vertices.shape[0]
+
 
 @ti.data_oriented
 class Edges:
@@ -26,7 +33,7 @@ class Edges:
         self.data = ti.Vector.field(3, dtype=float, shape=self.size)
     
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         for idx in range(self.start_index, self.end_index):
             self.data[idx] = self.dofs.vertices[idx + 1] - self.dofs.vertices[idx]
 
@@ -41,7 +48,7 @@ class Lengths:
         self.data = ti.field(dtype=float, shape=self.size)
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         for idx in range(self.start_index, self.end_index):
             self.data[idx] = tm.length(self.edges.data[idx])
 
@@ -58,7 +65,7 @@ class Tangents:
         self.data = ti.Vector.field(3, dtype=float, shape=self.size)
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         for idx in range(self.start_index, self.end_index):
             self.data[idx] = self.edges.data[idx] / self.lengths.data[idx]
 
@@ -74,7 +81,7 @@ class CurvatureBinormals:
         self.data = ti.Vector.field(3, dtype=float, shape=self.size)
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         for idx in range(self.start_index, self.end_index):
             t1 = self.tangents.data[idx - 1]
             t2 = self.tangents.data[idx]
@@ -98,7 +105,7 @@ class TrigThetas:
         self.cos_data = ti.field(dtype=float, shape=self.size)
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         for idx in range(self.start_index, self.end_index):
             self.sin_data[idx] = tm.sin(self.dofs.degrees[idx])
             self.cos_data[idx] = tm.cos(self.dofs.degrees[idx])

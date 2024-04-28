@@ -5,7 +5,7 @@ from Liquid_Hair_Interaction.Simulation.DER.Components.ElasticParameters import 
 
 
 @ti.data_oriented
-class DER_StrandEquilibriumParameters:
+class StrandEquilibriumParameters:
     def __init__(self, vertices, curl_radius, curl_density, dL, root_length, valid):
         self.vertices = vertices
         self.curl_radius = curl_radius
@@ -17,7 +17,7 @@ class DER_StrandEquilibriumParameters:
 
 
 @ti.data_oriented
-class DER_StrandParameters:
+class StrandParameters:
     def __init__(self, radius, Youngs_Modulus, Shear_Modulus, stretching_multiplier, density, viscosity,
                  base_rotation, dt, accumulate_viscousity, accumulate_viscousity_bend, variable_radius_hair,
                  straight_hairs, color):

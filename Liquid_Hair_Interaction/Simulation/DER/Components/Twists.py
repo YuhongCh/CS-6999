@@ -18,7 +18,7 @@ class Twists:
         self.data = ti.field(dtype=float, shape=self.size)
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         for idx in range(self.start_index, self.end_index):
             self.data[idx] = self.data[idx] + self.dofs.degrees[idx-1] + self.dofs.degrees[idx]
 
@@ -35,7 +35,7 @@ class GradTwists:
         self.data = ti.Vector.field(11, dtype=float, shape=self.size)
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         for idx in range(self.start_index, self.end_index):
             curr_kb = self.curvature_binormals.data[idx]
             self.data[idx][0:3] = -0.5 / self.lengths.data[idx - 1] * curr_kb
@@ -56,7 +56,7 @@ class GradTwistsSquared:
         self.data = ti.Matrix.field(11, 11, dtype=float, shape=self.size)
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         for idx in range(self.start_index, self.end_index):
             self.data[idx] = self.grad_twists[idx] @ self.grad_twists[idx].transpose()
     
@@ -74,7 +74,7 @@ class HessTwists:
         self.data = ti.Matrix.field(11, 11, dtype=float, shape=self.size)
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         for idx in range(self.start_index, self.end_index):
             prev_tangent = self.tangents.data[idx - 1]
             curr_tangent = self.tangnents.data[idx]

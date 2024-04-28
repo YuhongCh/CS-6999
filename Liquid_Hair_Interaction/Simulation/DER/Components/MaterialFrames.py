@@ -22,7 +22,7 @@ class MaterialFrames:
         raise NotImplementedError
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         for idx in range(self.start_index, self.end_index):
             rf1 = self.ref_frame1.data[idx]
             rf2 = self.ref_frame2.data[idx]

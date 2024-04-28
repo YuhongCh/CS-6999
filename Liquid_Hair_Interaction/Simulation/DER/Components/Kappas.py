@@ -21,7 +21,7 @@ class Kappas:
         self.data = ti.Vector.field(2, dtype=float, shape=self.size)
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
        for idx in range(self.start_index, self.end_index):
            kb = self.curvature_binormals.data[idx]
            prev_mf1 = self.mat_frame1.data[idx - 1]
@@ -51,7 +51,7 @@ class GradKappas:
         self.data = ti.Matrix.field(11, 2, dtype=float, shape=self.size)
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         for idx in range(self.start_index, self.end_index):
             prev_length = self.lengths.data[idx - 1]
             curr_length = self.lengths.data[idx]
@@ -106,7 +106,7 @@ class HessKappas:
         self.data = ti.Matrix.field(11, 11, dtype=float, shape=(self.size, 2))
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
         for idx in range(self.start_index, self.end_index):
             prev_length = self.lengths.data[idx - 1]
             curr_length = self.lengths.data[idx]

@@ -60,7 +60,7 @@ class CohensionTable:
     def t_getInterpolateTable(self, A: float, d0: float, mat, dmin: float) -> float:
       """ mat is a matrix of dynamic size """
       d_inc = self.max_d0 / self.discretization
-      p = max(0, d0 - dmin) / d_inc
+      p = max(0.0, d0 - dmin) / d_inc
       fp = min(p - tm.floor(p), 1.0)
       ip0 = max(0, min(self.discretization - 2, tm.floor(p)))
       ip1 = ip0 + 1
@@ -191,74 +191,223 @@ class CohensionTable:
               gamma * t2 * t5 * (8.0 / 3.0) + d0 * gamma * self.theta * t6 * (2.0 / 3.0) - \
               d0 * self.theta * t6 * MathUtils.PI * (1.0 / 3.0)
 
+    @ti.func
+    def t_computeApproxdEdd(self, alpha: float, d0: float) -> float:
+        gamma = alpha + self.theta
+        t2 = tm.sin(self.theta)
+        t3 = self.radii * self.radii
+        t4 = tm.cos(self.theta)
+        t5 = d0 * d0
+        t6 = d0 * self.radii * t2 * 2.0
+        t7 = self.theta * 2.0
+        t8 = tm.sin(t7)
+        return (self.sigma * (t3 * -8.0 + t5 + t6 + t3 * (t4 * t4) * 8.0 + t3 * t8 * MathUtils.PI * 2.0 -
+               gamma * t3 * t8 * 4.0 - d0 * gamma * self.radii * t4 * 2.0 +
+               d0 * self.radii * t4 * MathUtils.PI) * 2.0) / (t5 + t6 - (t2 * t2) * t3 * 8.0)
 
-scalar CohesionTable::computeApproxdEdd(const scalar& alpha,
-                                        const scalar& d0) const {
-  const scalar gamma = alpha + m_theta;
+    @ti.func
+    def t_computedEddPlanar(self, R: float, alpha: float) -> float: 
+        result = R
+        if R != 0.0:
+            t2 = self.theta * 2.0
+            t3 = tm.sin(alpha)
+            t4 = alpha + self.theta
+            t5 = tm.sin(t4)
+            t6 = alpha + t2
+            t7 = self.radii * self.radii
+            t8 = tm.sin(t6)
+            t9 = R * R
+            t10 = alpha * 2.0
+            t11 = tm.sin(t2)
+            t12 = t2 + t10
+            t13 = tm.sin(t12)
+            t14 = self.theta * 3.0
+            t15 = alpha + t14
+            t16 = tm.cos(t10)
+            t17 = tm.cos(t12)
+            t18 = tm.cos(self.theta)
+            t19 = t10 + self.theta
+            t20 = tm.cos(t19)
 
-  const scalar t2 = sin(m_theta);
-  const scalar t3 = m_radii * m_radii;
-  const scalar t4 = cos(m_theta);
-  const scalar t5 = d0 * d0;
-  const scalar t6 = d0 * m_radii * t2 * 2.0;
-  const scalar t7 = m_theta * 2.0;
-  const scalar t8 = sin(t7);
-  return (m_sigma *
-          (t3 * -8.0 + t5 + t6 + t3 * (t4 * t4) * 8.0 + t3 * t8 * M_PI * 2.0 -
-           gamma * t3 * t8 * 4.0 - d0 * gamma * m_radii * t4 * 2.0 +
-           d0 * m_radii * t4 * M_PI) *
-          2.0) /
-         (t5 + t6 - (t2 * t2) * t3 * 8.0);
-}
+            result = (self.sigma * (t7 * MathUtils.PI * -2.0 - t9 * MathUtils.PI * 2.0 + alpha * t7 * 2.0 +
+                     alpha * t9 * 2.0 + t3 * t7 * 4.0 + t3 * t9 * 4.0 + t7 * t8 * 2.0 +
+                     t8 * t9 * 4.0 - t7 * t11 * 2.0 + t7 * t13 * 2.0 - t9 * t11 +
+                     t9 * t13 * 3.0 + t7 * self.theta * 4.0 + t9 * self.theta * 4.0 +
+                     t7 * tm.sin(t10) * 2.0 + t7 * tm.sin(alpha - t2) * 2.0 +
+                     t9 * tm.sin(t10 + self.theta * 4.0) - R * self.radii * tm.sin(t14) +
+                     R * self.radii * tm.sin(t15) * 2.0 + R * self.radii * tm.sin(t19) * 5.0 -
+                     R * self.radii * tm.sin(self.theta) * 3.0 +
+                     R * self.radii * tm.sin(alpha - self.theta) * 6.0 + t7 * t16 * MathUtils.PI * 2.0 +
+                     t9 * t17 * MathUtils.PI * 2.0 + R * self.radii * t5 * 8.0 -
+                     alpha * t7 * t16 * 2.0 - alpha * t9 * t17 * 2.0 -
+                     t7 * t16 * self.theta * 4.0 - t9 * t17 * self.theta * 4.0 +
+                     R * self.radii * tm.sin(t10 + t14) * 3.0 +
+                     R * self.radii * t18 * self.theta * 8.0 -
+                     R * self.radii * t20 * self.theta * 8.0 -
+                     R * self.radii * t18 * MathUtils.PI * 4.0 + R * self.radii * t20 * MathUtils.PI * 4.0 +
+                     R * alpha * self.radii * t18 * 4.0 -
+                     R * alpha * self.radii * t20 * 4.0) /
+                    (R * (self.radii * 2.0 + R * t18 * 4.0 + R * tm.cos(t4) * 3.0 +
+                     R * tm.cos(t15) + self.radii * tm.cos(alpha) * 2.0 +
+                     self.radii * tm.cos(t2) * 2.0 + self.radii * tm.cos(t6) * 2.0 -
+                     R * t5 * MathUtils.PI * 2.0 + R * alpha * t5 * 2.0 -
+                     self.radii * t3 * MathUtils.PI * 2.0 + R * t5 * self.theta * 4.0 +
+                     alpha * self.radii * t3 * 2.0 + self.radii * t3 * self.theta * 4.0)))
+        return result
 
-scalar CohesionTable::computedEddPlanar(const scalar& R,
-                                        const scalar& alpha) const {
-  if (R == 0.0) {
-    return 0.0;
-  } else {
-    const scalar t2 = m_theta * 2.0;
-    const scalar t3 = sin(alpha);
-    const scalar t4 = alpha + m_theta;
-    const scalar t5 = sin(t4);
-    const scalar t6 = alpha + t2;
-    const scalar t7 = m_radii * m_radii;
-    const scalar t8 = sin(t6);
-    const scalar t9 = R * R;
-    const scalar t10 = alpha * 2.0;
-    const scalar t11 = sin(t2);
-    const scalar t12 = t2 + t10;
-    const scalar t13 = sin(t12);
-    const scalar t14 = m_theta * 3.0;
-    const scalar t15 = alpha + t14;
-    const scalar t16 = cos(t10);
-    const scalar t17 = cos(t12);
-    const scalar t18 = cos(m_theta);
-    const scalar t19 = t10 + m_theta;
-    const scalar t20 = cos(t19);
-    return (m_sigma *
-            (t7 * M_PI * -2.0 - t9 * M_PI * 2.0 + alpha * t7 * 2.0 +
-             alpha * t9 * 2.0 + t3 * t7 * 4.0 + t3 * t9 * 4.0 + t7 * t8 * 2.0 +
-             t8 * t9 * 4.0 - t7 * t11 * 2.0 + t7 * t13 * 2.0 - t9 * t11 +
-             t9 * t13 * 3.0 + t7 * m_theta * 4.0 + t9 * m_theta * 4.0 +
-             t7 * sin(t10) * 2.0 + t7 * sin(alpha - t2) * 2.0 +
-             t9 * sin(t10 + m_theta * 4.0) - R * m_radii * sin(t14) +
-             R * m_radii * sin(t15) * 2.0 + R * m_radii * sin(t19) * 5.0 -
-             R * m_radii * sin(m_theta) * 3.0 +
-             R * m_radii * sin(alpha - m_theta) * 6.0 + t7 * t16 * M_PI * 2.0 +
-             t9 * t17 * M_PI * 2.0 + R * m_radii * t5 * 8.0 -
-             alpha * t7 * t16 * 2.0 - alpha * t9 * t17 * 2.0 -
-             t7 * t16 * m_theta * 4.0 - t9 * t17 * m_theta * 4.0 +
-             R * m_radii * sin(t10 + t14) * 3.0 +
-             R * m_radii * t18 * m_theta * 8.0 -
-             R * m_radii * t20 * m_theta * 8.0 -
-             R * m_radii * t18 * M_PI * 4.0 + R * m_radii * t20 * M_PI * 4.0 +
-             R * alpha * m_radii * t18 * 4.0 -
-             R * alpha * m_radii * t20 * 4.0)) /
-           (R * (m_radii * 2.0 + R * t18 * 4.0 + R * cos(t4) * 3.0 +
-                 R * cos(t15) + m_radii * cos(alpha) * 2.0 +
-                 m_radii * cos(t2) * 2.0 + m_radii * cos(t6) * 2.0 -
-                 R * t5 * M_PI * 2.0 + R * alpha * t5 * 2.0 -
-                 m_radii * t3 * M_PI * 2.0 + R * t5 * m_theta * 4.0 +
-                 alpha * m_radii * t3 * 2.0 + m_radii * t3 * m_theta * 4.0));
-  }
-}
+    @ti.func
+    def t_computedEdd(self, R: float, alpha: float) -> float:
+        result = 0.0
+        if R != 0.0:
+            t2 = tm.sin(alpha)
+            t3 = alpha + self.theta
+            t4 = tm.sin(t3)
+            t5 = R * R
+            t6 = self.radii * self.radii
+            t7 = self.theta * 2.0
+            t8 = alpha * 2.0
+            t9 = t7 + t8
+            t10 = tm.sin(t9)
+            t11 = tm.cos(t8)
+            t12 = tm.cos(t9)
+            t13 = tm.cos(self.theta)
+            t14 = t8 + self.theta
+            t15 = tm.cos(t14)
+            
+            result = (self.sigma *
+                        (-t5 * MathUtils.PI - t6 * MathUtils.PI + alpha * t5 * 2.0 + alpha * t6 * 2.0 +
+                        t5 * t10 * 2.0 + t6 * t10 + t5 * self.theta * 2.0 +
+                        t6 * self.theta * 2.0 - t6 * tm.sin(t7) + t6 * tm.sin(t8) +
+                        R * self.radii * tm.sin(t14) * 3.0 - R * self.radii * tm.sin(self.theta) * 2.0 +
+                        R * self.radii * tm.sin(t8 + self.theta * 3.0) + t5 * t12 * MathUtils.PI +
+                        t6 * t11 * MathUtils.PI - alpha * t5 * t12 * 2.0 - alpha * t6 * t11 * 2.0 -
+                        t5 * t12 * self.theta * 2.0 - t6 * t11 * self.theta * 2.0 +
+                        R * self.radii * t13 * self.theta * 4.0 -
+                        R * self.radii * t15 * self.theta * 4.0 -
+                        R * self.radii * t13 * MathUtils.PI * 2.0 + R * self.radii * t15 * MathUtils.PI * 2.0 +
+                        R * alpha * self.radii * t13 * 4.0 -
+                        R * alpha * self.radii * t15 * 4.0)
+                      ) / (R * (self.radii * tm.cos(alpha + t7) + R * tm.cos(t3) * 2.0 +
+                       self.radii * tm.cos(alpha) - R * t4 * MathUtils.PI + R * alpha * t4 * 2.0 -
+                       self.radii * t2 * MathUtils.PI + R * t4 * self.theta * 2.0 +
+                       alpha * self.radii * t2 * 2.0 + self.radii * t2 * self.theta * 2.0))
+        return result
+
+    @ti.func
+    def t_computeRPlanar(self, alpha, d0) -> float:
+        return (d0 - self.radii * tm.cos(alpha)) / (tm.cos(self.theta + alpha) + tm.ccos(self.theta))
+
+    @ti.func
+    def t_computeAPlanar(self, R: float, alpha: float) -> float:
+        return 2.0 * (0.5 * self.radii * self.radii * tm.sin(alpha) * tm.cos(alpha) +
+                      self.radii * tm.sin(alpha) * R * tm.cos(self.theta + alpha) +
+                      0.5 * R * R * tm.sin(self.theta + alpha) * tm.cos(self.theta + alpha)
+                      ) + \
+                     (2.0 * (R * tm.sin(self.theta + alpha) - R * tm.sin(self.theta) +
+                      self.radii * tm.sin(alpha)) * R * tm.cos(self.theta) +
+                      R * R * tm.sin(self.theta) * tm.cos(self.theta) -
+                      (alpha * self.radii * self.radii + R * R * (MathUtils.PI - 2.0 * self.theta - alpha))
+                      )
+
+    @ti.func
+    def t_computeHPlanar(self, R: float, alpha: float) -> float:
+        return self.t_computeH(R, alpha)
+
+    @ti.func
+    def t_computeApproxAPlanar(self, alpha: float, d0: float) -> float:
+        result = self.theta
+        if self.theta != 0.0:
+            gamma = alpha + self.theta * 2.0
+            t2 = self.theta * 3.0
+            t3 = tm.cos(t2)
+            t4 = self.radii * self.radii
+            t5 = d0 * d0
+            t6 = tm.cos(self.theta)
+            t7 = MathUtils.PI * MathUtils.PI
+            t8 = self.theta * 5.0
+            t9 = tm.cos(t8)
+            t10 = gamma * gamma
+            t11 = tm.sin(self.theta)
+            t12 = tm.sin(t2)
+            t13 = tm.sin(t8)
+            result = 1.0 / (t11 * t11 * t11) * (1.0 / 4.8E1) * \
+                        (t3 * t4 * 6.0 - t3 * t5 * 1.2E1 + t5 * t6 * 1.2E1 - t4 * t9 * 6.0 -
+                        t4 * t11 * MathUtils.PI * 4.0 - t4 * t12 * MathUtils.PI * 1.6E1 -
+                        t5 * t11 * MathUtils.PI * 3.2E1 + t4 * t13 * MathUtils.PI * 4.0 -
+                        d0 * self.radii * t3 * 2.4E1 + d0 * self.radii * t6 * 2.4E1 -
+                        gamma * t4 * t11 * 3.2E1 + gamma * t4 * t12 * 2.8E1 +
+                        gamma * t5 * t11 * 3.2E1 - gamma * t4 * t13 * 4.0 -
+                        t3 * t4 * t7 * 3.0 - t3 * t4 * t10 * 3.0 + t4 * t6 * t7 * 2.2E1 +
+                        t5 * t6 * t7 * 2.0E1 + t4 * t6 * t10 * 2.2E1 + t4 * t7 * t9 +
+                        t5 * t6 * t10 * 2.0E1 + t4 * t9 * t10 + t4 * t11 * self.theta * 7.2E1 -
+                        t4 * t12 * self.theta * 2.4E1 + d0 * gamma * self.radii * t11 * 4.0E1 +
+                        d0 * gamma * self.radii * t12 * 8.0 + d0 * self.radii * t6 * t7 * 4.0E1 +
+                        d0 * self.radii * t6 * t10 * 4.0E1 -
+                        d0 * self.radii * t11 * MathUtils.PI * 4.0E1 -
+                        d0 * self.radii * t12 * MathUtils.PI * 8.0 + gamma * t3 * t4 * MathUtils.PI * 6.0 -
+                        gamma * t4 * t6 * MathUtils.PI * 4.4E1 - gamma * t5 * t6 * MathUtils.PI * 4.0E1 -
+                        gamma * t4 * t9 * MathUtils.PI * 2.0 -
+                        d0 * gamma * self.radii * t6 * MathUtils.PI * 8.0E1)
+        return result
+
+    @ti.func
+    def t_computeApproxdEddPlanar(self, alpha: float, d0: float) -> float:
+        gamma = alpha + self.theta * 2.0
+        result = 0.0
+        if self.theta == 0.0:
+            t2 = d0 * d0
+            t3 = self.radii * self.radii
+            result = self.sigma * 1.0 / pow(d0 + self.radii, 2.0) * (1.0 / 2.0) * \
+                     (t2 * MathUtils.PI * 4.0 + t3 * MathUtils.PI * 4.0 - gamma * t2 * 4.0 -
+                      gamma * t3 * 4.0 + d0 * self.radii * MathUtils.PI * 8.0 -
+                      d0 * gamma * self.radii * 8.0)
+        else:
+            t2 = self.theta * 2.0
+            t3 = tm.cos(t2)
+            t4 = d0 * d0
+            t5 = self.radii * self.radii
+            t6 = t3 * t3
+            t7 = MathUtils.PI * MathUtils.PI
+            t8 = gamma * gamma
+            t9 = tm.sin(t2)
+            t10 = self.theta * 4.0
+            t11 = tm.sin(t10)
+            result = (self.sigma * 1.0 / pow(d0 + self.radii * t3, 2.0) *
+                     (t4 * -2.0 + t3 * t4 * 2.0 + t4 * t7 - t5 * t6 * 2.0 + t4 * t8 -
+                     t5 * t7 * 2.0 - t5 * t8 * 2.0 - gamma * t4 * MathUtils.PI * 2.0 +
+                     gamma * t5 * MathUtils.PI * 4.0 - t4 * t9 * MathUtils.PI * 2.0 - t5 * t11 * MathUtils.PI -
+                     d0 * self.radii * t3 * 4.0 + d0 * self.radii * t6 * 4.0 -
+                     d0 * self.radii * t7 - d0 * self.radii * t8 + gamma * t4 * t9 * 2.0 +
+                     gamma * t5 * t11 - t3 * t4 * t7 + t3 * t5 * t6 * 2.0 -
+                     t3 * t4 * t8 + t3 * t5 * t7 + t3 * t5 * t8 + t5 * t6 * t7 +
+                     t5 * t6 * t8 + d0 * gamma * self.radii * t9 * 2.0 +
+                     d0 * gamma * self.radii * t11 + d0 * self.radii * t6 * t7 +
+                     d0 * self.radii * t6 * t8 + d0 * gamma * self.radii * MathUtils.PI * 2.0 -
+                     d0 * self.radii * t9 * MathUtils.PI * 2.0 - d0 * self.radii * t11 * MathUtils.PI +
+                     gamma * t3 * t4 * MathUtils.PI * 2.0 - gamma * t3 * t5 * MathUtils.PI * 2.0 -
+                     gamma * t5 * t6 * MathUtils.PI * 2.0 -
+                     d0 * gamma * self.radii * t6 * MathUtils.PI * 2.0) *
+                    (-1.0 / 2.0)) / tm.sin(self.theta)
+        return result
+
+    @ti.func
+    def t_computedEddAreaDist(self, A_target: float, d0: float) -> float:
+        result = 0.0
+        if d0 < self.t_getDStar():
+            result = self.t_computedEddAreaDist(A_target, self.t_getDStar())
+        elif d0 < tm.sqrt(A_target / MathUtils.PI + 2.0 * self.radii * self.radii) - self.radii * 2.0:
+            result = 0.0
+        else:
+            alpha = self.t_getInterpolate_alpha(A_target, d0)
+            gamma = alpha + self.theta
+            dEdd = 0.0
+            if (gamma < MathUtils.PI * 0.5 + CohensionTable.ANGLE_EPSILON and
+               gamma > MathUtils.PI * 0.5 + CohensionTable.ANGLE_EPSILON):
+               dEdd = self.t_computeApproxdEdd(alpha, d0)
+            else:
+                R_target = self.t_computeR(alpha, d0)
+                dEdd = self.t_computedEdd(R_target, alpha)
+            result = max(0.0, dEdd)
+        return result
+
+

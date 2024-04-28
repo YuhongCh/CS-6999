@@ -15,7 +15,7 @@ class BendingProducts:
        self.data = ti.Matrix.field(11, 11, dtype=float, shape=self.size)
 
     @ti.kernel
-    def t_compute(self):
+    def compute(self):
        for idx in range(self.start_index, self.end_index):
           # compute KBK^T
           self.data[idx] = self.grad_kappas.data[idx] @ self.bending_matrix.data @ self.grad_kappas.data[idx].transpose()
